@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/app-192.png">
+<meta name="theme-color" content="#7655e9">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FocusUp">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#7165e8">
+<title>مسیر من | رشد هر روزه</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary:#7165e8;
+  --primary-light:#eeeaff;
+  --bg:#f7f7fc;
+  --card:#fff;
+  --text:#262641;
+  --muted:#85859e;
+  --green:#25b887;
+  --border:#eeedf6;
+  --shadow:0 8px 30px #34306d0b;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:'Vazirmatn',Tahoma,sans-serif;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{max-width:1150px;margin:auto;padding:22px}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:15px;margin-bottom:25px;
+}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{
+  width:48px;height:48px;border-radius:16px;background:var(--primary);
+  display:grid;place-items:center;color:white;font-size:25px;
+  box-shadow:0 7px 18px #7165e844;
+}
+.brand h1{font-size:20px;margin:0}
+.brand p{font-size:12px;color:var(--muted);margin:3px 0 0}
+.profile-pill{
+  background:white;border:1px solid var(--border);padding:9px 14px;
+  border-radius:30px;font-size:13px;
+}
+.welcome{
+  padding:28px;border-radius:26px;color:white;
+  background:linear-gradient(120deg,#7165e8,#a28af5);
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  overflow:hidden;position:relative;margin-bottom:22px;
+}
+.welcome h2{font-size:clamp(23px,4vw,32px);margin:0 0 9px}
+.welcome p{margin:0;line-height:1.9;color:#f0edff;font-size:14px}
+.welcome-icon{font-size:74px;opacity:.95}
+.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:20px}
+.column{display:flex;flex-direction:column;gap:20px;min-width:0}
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:22px;padding:22px;box-shadow:var(--shadow);
+}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px}
+.card h3{font-size:17px;margin:0}
+.sub{color:var(--muted);font-size:12px;margin-top:5px}
+.tag{font-size:11px;background:var(--primary-light);color:var(--primary);padding:6px 10px;border-radius:20px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat{padding:16px 12px;background:white;border:1px solid var(--border);border-radius:18px}
+.stat .emoji{font-size:22px}
+.stat strong{display:block;font-size:23px;margin:7px 0 2px}
+.stat span{font-size:12px;color:var(--muted)}
+.progress-track{height:9px;background:#efedf9;border-radius:20px;overflow:hidden;margin:14px 0 8px}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#7165e8,#a48cf5);border-radius:20px;transition:width .3s}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.task-list{display:flex;flex-direction:column;gap:10px}
+.task{
+  display:flex;align-items:center;gap:12px;padding:13px;
+  border:1px solid var(--border);border-radius:15px;transition:.2s;
+}
+.task.done{background:#f5fcf9;border-color:#d9f4e9}
+.task-check{
+  width:23px;height:23px;flex-shrink:0;border:2px solid #d9d7e9;
+  border-radius:8px;background:white;color:white;display:grid;place-items:center;
+}
+.task.done .task-check{background:var(--green);border-color:var(--green)}
+.task-info{flex:1;min-width:0}
+.task-info strong{display:block;font-size:13px;overflow-wrap:anywhere}
+.task-info small{color:var(--muted);font-size:11px}
+.task.done .task-info strong{text-decoration:line-through;color:var(--muted)}
+.delete-btn{border:0;background:transparent;color:#aaa6bd;font-size:18px;padding:4px}
+.add-row{display:flex;gap:8px;margin-top:14px}
+.field{
+  min-width:0;width:100%;padding:12px 13px;border-radius:12px;
+  border:1px solid #e5e3f0;background:#fcfcff;outline:none;
+}
+.field:focus{border-color:var(--primary)}
+.primary-btn{
+  border:0;border-radius:12px;background:var(--primary);color:white;
+  padding:11px 17px;white-space:nowrap;font-weight:600;
+}
+.primary-btn:hover{filter:brightness(.96)}
+.secondary-btn{
+  border:1px solid var(--border);background:white;border-radius:12px;
+  padding:10px 14px;color:var(--text);
+}
+.leader-list{display:flex;flex-direction:column;gap:12px}
+.leader{
+  display:flex;align-items:center;gap:11px;padding:12px;
+  background:#faf9fe;border-radius:15px;
+}
+.rank{font-size:14px;font-weight:800;width:23px;text-align:center;color:var(--muted)}
+.avatar{
+  width:40px;height:40px;border-radius:14px;background:#eeeaff;
+  display:grid;place-items:center;font-size:21px;flex-shrink:0;
+}
+.leader-info{flex:1;min-width:0}
+.leader-info strong{display:block;font-size:13px}
+.leader-info small{color:var(--muted);font-size:11px}
+.points{font-size:12px;font-weight:800;color:var(--primary);white-space:nowrap}
+.you{border:1px solid #c9c1ff;background:#f5f2ff}
+.me-label{font-size:10px;color:var(--primary)}
+.food-row{display:flex;gap:8px}
+.food-items{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.food-chip{background:#f5f3ff;border-radius:20px;padding:7px 11px;font-size:12px}
+.food-chip button{border:0;background:none;color:#9186d8;margin-right:5px}
+.empty{text-align:center;color:var(--muted);font-size:13px;padding:20px 8px}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.badge-item{text-align:center;border:1px solid var(--border);border-radius:15px;padding:13px 5px}
+.badge-item span{font-size:27px;display:block;margin-bottom:7px}
+.badge-item strong{font-size:11px;display:block}
+.badge-item small{font-size:10px;color:var(--muted)}
+.badge-item.locked{opacity:.4;filter:grayscale(1)}
+.bottom-note{text-align:center;color:var(--muted);font-size:11px;padding:22px 0}
+.overlay{
+  position:fixed;inset:0;background:#17142d99;display:grid;place-items:center;
+  padding:18px;z-index:10;
+}
+.modal{
+  background:white;width:100%;max-width:440px;padding:27px;border-radius:25px;
+  box-shadow:0 20px 80px #17142d40;
+}
+.modal h2{margin:0 0 8px;font-size:23px}
+.modal p{color:var(--muted);font-size:13px;line-height:1.9}
+.modal label{display:block;font-size:13px;font-weight:600;margin:17px 0 8px}
+.gender-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.gender-option{border:1px solid var(--border);border-radius:13px;padding:13px 5px;text-align:center;font-size:12px;background:white}
+.gender-option.selected{border:2px solid var(--primary);background:var(--primary-light);color:var(--primary)}
+.modal .primary-btn{width:100%;margin-top:20px;padding:13px}
+.hidden{display:none!important}
+@media(max-width:760px){
+  .app{padding:14px}
+  .layout{grid-template-columns:1fr}
+  .welcome{padding:23px}
+  .welcome-icon{font-size:53px}
+  .card{padding:17px}
+  .stats{gap:8px}
+  .stat{padding:13px 9px}
+  .stat strong{font-size:20px}
+}
+@media(max-width:380px){
+  .welcome-icon{display:none}
+  .add-row{flex-wrap:wrap}
+  .add-row .primary-btn{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">✦</div>
+      <div>
+        <h1>مسیر من</h1>
+        <p>هر روز، یک قدم جلوتر 🌱</p>
+      </div>
+    </div>
+    <button class="profile-pill" id="editProfile">👤 پروفایل من</button>
+  </header>
+
+  <section class="welcome">
+    <div>
+      <h2 id="welcomeTitle">سلام! آماده‌ای؟ 👋</h2>
+      <p>قدم‌های کوچک امروز، پیشرفت بزرگ فرداست.<br>برنامه‌ات را انجام بده و امتیاز بگیر!</p>
+    </div>
+    <div class="welcome-icon">🌈</div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><div class="emoji">⭐</div><strong id="pointsStat">0</strong><span>امتیاز من</span></div>
+    <div class="stat"><div class="emoji">✅</div><strong id="doneStat">0</strong><span>کار انجام‌شده</span></div>
+    <div class="stat"><div class="emoji">🏆</div><strong id="levelStat">1</strong><span>سطح من</span></div>
+  </section>
+
+  <div class="layout">
+    <div class="column">
+      <section class="card">
+        <div class="card-head">
+          <div><h3>📋 برنامه امروز</h3><div class="sub">هر کار انجام‌شده = ۱۰ امتیاز</div></div>
+          <span class="tag" id="taskCount">۰ کار</span>
+        </div>
+        <div class="progress-label"><span>پیشرفت امروز</span><strong id="progressText">۰٪</strong></div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="task-list" id="taskList"></div>
+        <form class="add-row" id="taskForm">
+          <input class="field" id="taskInput" maxlength="80" placeholder="یک کار جدید بنویس..." required>
+          <button class="primary-btn" type="submit">+ افزودن</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div><h3>🥗 دفتر خوراکی‌ها</h3><div class="sub">ثبت وعده‌ها و عادت‌های غذایی</div></div>
+        </div>
+        <form class="food-row" id="foodForm">
+          <input class="field" id="foodInput" maxlength="70" placeholder="مثلاً: صبحانه، میوه..." required>
+          <button class="primary-btn" type="submit">ثبت</button>
+        </form>
+        <div class="food-items" id="foodItems"></div>
+        <p class="sub">این بخش برای یادآوری وعده‌هاست؛ هدف، تغذیه‌ی متنوع و مراقبت از خودت است.</p>
+      </section>
+    </div>
+
+    <div class="column">
+      <section class="card">
+        <div class="card-head">
+          <div><h3>🏆 جدول پیشرفت</h3><div class="sub">نمونه‌ی نمایشی کاربران</div></div>
+          <span class="tag">رقابت دوستانه</span>
+        </div>
+        <div class="leader-list" id="leaderList"></div>
+        <p class="sub">امتیاز شما با انجام کارها افزایش پیدا می‌کند. رتبه‌بندی واقعی آنلاین به سرور نیاز دارد.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div><h3>🎖️ نشان‌های من</h3><div class="sub">با ادامه دادن، نشان جمع کن</div></div>
+        </div>
+        <div class="badges" id="badges"></div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h3>💡 یادآوری امروز</h3></div>
+        <p style="font-size:14px;line-height:2;margin:0">لازم نیست همه‌چیز را یک‌روزه تغییر بدهی. یک کار کوچک را انتخاب کن، انجامش بده و به خودت بابت تلاشت اعتبار بده. 💜</p>
+      </section>
+    </div>
+  </div>
+  <footer class="bottom-note">مسیر من © · پیشرفت تو، با روش خودت 🌱</footer>
+</div>
+
+<div class="overlay hidden" id="profileOverlay">
+  <form class="modal" id="profileForm">
+    <h2>به مسیر من خوش اومدی! 🌱</h2>
+    <p>پروفایلت رو بساز تا تجربه‌ی شخصی‌تری داشته باشی. اطلاعات این نسخه روی همین مرورگر ذخیره می‌شود.</p>
+    <label for="nameInput">اسم یا نام کاربری</label>
+    <input class="field" id="nameInput" maxlength="24" placeholder="مثلاً: آوا" required>
+    <label>جنسیت (اختیاری)</label>
+    <div class="gender-options" id="genderOptions">
+      <button type="button" class="gender-option" data-gender="دختر">👧<br>دختر</button>
+      <button type="button" class="gender-option" data-gender="پسر">👦<br>پسر</button>
+      <button type="button" class="gender-option selected" data-gender="نمی‌گویم">🌈<br>نمی‌گویم</button>
+    </div>
+    <button type="submit" class="primary-btn">شروع مسیر من ✨</button>
+  </form>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const today = new Date().toLocaleDateString('fa-IR');
+const dateKey = new Date().toISOString().slice(0,10);
+
+function load(key, fallback) {
+  try {
+    const value = localStorage.getItem('masireman_' + key);
+    return value ? JSON.parse(value) : fallback;
+  } catch { return fallback; }
+}
+function save(key, value) {
+  localStorage.setItem('masireman_' + key, JSON.stringify(value));
+}
+
+let profile = load('profile', {name:'', gender:'نمی‌گویم'});
+let tasks = load('tasks_' + dateKey, [
+  {id:1, text:'مرتب کردن برنامه‌ی امروز', done:false},
+  {id:2, text:'کمی حرکت و استراحت از صفحه‌نمایش', done:false},
+  {id:3, text:'زمانی برای یادگیری یک چیز جدید', done:false}
+]);
+let foods = load('foods_' + dateKey, []);
+let points = load('points', 0);
+let gender = profile.gender || 'نمی‌گویم';
+
+const samplePlayers = [
+  {name:'آوا', points:120, emoji:'🌷'},
+  {name:'آرین', points:100, emoji:'🚀'},
+  {name:'نیلو', points:80, emoji:'🦋'},
+  {name:'سام', points:60, emoji:'⚡'}
+];
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[char]));
+}
+function update() {
+  const completed = tasks.filter(t => t.done).length;
+  const percent = tasks.length ? Math.round(completed / tasks.length * 100) : 0;
+  $('pointsStat').textContent = points;
+  $('doneStat').textContent = completed;
+  $('levelStat').textContent = Math.floor(points / 100) + 1;
+  $('taskCount').textContent = `${completed} از ${tasks.length} کار`;
+  $('progressText').textContent = percent + '٪';
+  $('progressFill').style.width = percent + '%';
+  $('welcomeTitle').textContent = profile.name ? `سلام ${profile.name}! 👋` : 'سلام! آماده‌ای؟ 👋';
+
+  $('taskList').innerHTML = tasks.length ? tasks.map(t => `
+    <div class="task ${t.done ? 'done' : ''}">
+      <button class="task-check" data-toggle="${t.id}" aria-label="تغییر وضعیت">
+        ${t.done ? '✓' : ''}
+      </button>
+      <div class="task-info"><strong>${escapeHTML(t.text)}</strong>
+      <small>${t.done ? 'آفرین! این کار انجام شد 🎉' : 'یک قدم کوچک به سمت هدفت'}</small></div>
+      <button class="delete-btn" data-delete="${t.id}" aria-label="حذف کار">×</button>
+    </div>`).join('') : '<div class="empty">هنوز کاری اضافه نکردی؛ اولین قدم رو بردار ✨</div>';
+
+  $('foodItems').innerHTML = foods.length ? foods.map((food, i) => `
+    <span class="food-chip">🥣 ${escapeHTML(food)}
+      <button data-food-delete="${i}" aria-label="حذف">×</button>
+    </span>`).join('') : '<div class="empty">هنوز چیزی ثبت نکردی.</div>';
+
+  const board = [
+    ...samplePlayers,
+    {name:profile.name || 'شما', points, emoji:'🌟', isMe:true}
+  ].sort((a,b) => b.points - a.points);
+
+  $('leaderList').innerHTML = board.map((p,i) => `
+    <div class="leader ${p.isMe ? 'you' : ''}">
+      <div class="rank">${['🥇','🥈','🥉'][i] || (i+1)}</div>
+      <div class="avatar">${p.emoji}</div>
+      <div class="leader-info"><strong>${escapeHTML(p.name)} ${p.isMe ? '<span class="me-label"> (تو)</span>' : ''}</strong>
+      <small>${Math.floor(p.points / 100)+1} سطح</small></div>
+      <div class="points">${p.points} ⭐</div>
+    </div>`).join('');
+
+  const badgeData = [
+    {icon:'🌱', name:'شروع‌کننده', desc:'اولین کار', unlocked:points >= 10},
+    {icon:'🔥', name:'پرتلاش', desc:'۵۰ امتیاز', unlocked:points >= 50},
+    {icon:'🏅', name:'ستاره', desc:'۱۰۰ امتیاز', unlocked:points >= 100},
+    {icon:'🚀', name:'پیشرو', desc:'۲۰۰ امتیاز', unlocked:points >= 200},
+    {icon:'💎', name:'درخشان', desc:'۵۰۰ امتیاز', unlocked:points >= 500},
+    {icon:'👑', name:'قهرمان', desc:'۱۰۰۰ امتیاز', unlocked:points >= 1000}
+  ];
+  $('badges').innerHTML = badgeData.map(b => `
+    <div class="badge-item ${b.unlocked ? '' : 'locked'}">
+      <span>${b.icon}</span><strong>${b.name}</strong><small>${b.unlocked ? 'دریافت شد!' : b.desc}</small>
+    </div>`).join('');
+
+  save('tasks_' + dateKey, tasks);
+  save('foods_' + dateKey, foods);
+  save('points', points);
+}
+
+$('taskForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const text = $('taskInput').value.trim();
+  if (!text) return;
+  tasks.push({id:Date.now(), text, done:false});
+  $('taskInput').value = '';
+  update();
+});
+
+$('taskList').addEventListener('click', e => {
+  const toggle = e.target.closest('[data-toggle]');
+  const del = e.target.closest('[data-delete]');
+  if (toggle) {
+    const task = tasks.find(t => t.id === Number(toggle.dataset.toggle));
+    if (task) {
+      task.done = !task.done;
+      points = Math.max(0, points + (task.done ? 10 : -10));
+      update();
+    }
+  }
+  if (del) {
+    tasks = tasks.filter(t => t.id !== Number(del.dataset.delete));
+    update();
+  }
+});
+
+$('foodForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const value = $('foodInput').value.trim();
+  if (!value) return;
+  foods.push(value);
+  $('foodInput').value = '';
+  update();
+});
+$('foodItems').addEventListener('click', e => {
+  const btn = e.target.closest('[data-food-delete]');
+  if (!btn) return;
+  foods.splice(Number(btn.dataset.foodDelete), 1);
+  update();
+});
+
+function openProfile() {
+  $('nameInput').value = profile.name || '';
+  document.querySelectorAll('.gender-option').forEach(btn => {
+    btn.classList.toggle('selected', btn.dataset.gender === gender);
+  });
+  $('profileOverlay').classList.remove('hidden');
+}
+document.querySelectorAll('.gender-option').forEach(btn => {
+  btn.addEventListener('click', () => {
+    gender = btn.dataset.gender;
+    document.querySelectorAll('.gender-option').forEach(b =>
+      b.classList.toggle('selected', b === btn)
+    );
+  });
+});
+$('profileForm').addEventListener('submit', e => {
+  e.preventDefault();
+  profile = {name:$('nameInput').value.trim(), gender};
+  save('profile', profile);
+  $('profileOverlay').classList.add('hidden');
+  update();
+});
+$('editProfile').addEventListener('click', openProfile);
+
+update();
+if (!profile.name) openProfile();
+</script>
+</body>
+</html>
